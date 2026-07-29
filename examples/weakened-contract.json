@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0",
+  "id": "checkout-v42-weakened",
+  "goal": "Release checkout v42 with weakened controls.",
+  "executor": "release-agent",
+  "actors": [
+    { "id": "release-agent", "label": "Release Agent", "type": "agent" },
+    { "id": "ci-verifier", "label": "CI Verifier", "type": "service" },
+    { "id": "synthetic-monitor", "label": "Synthetic Monitor", "type": "service" },
+    { "id": "release-manager", "label": "Release Manager", "type": "human" }
+  ],
+  "criteria": [
+    {
+      "id": "tests-pass",
+      "statement": "The checkout test suite passes.",
+      "critical": false,
+      "minPassing": 1,
+      "maxAgeMinutes": 240,
+      "independentVerifier": false,
+      "requiredEvidenceTypes": ["test"],
+      "requiredTags": ["commit:v42"],
+      "negativeTestRequired": false
+    },
+    {
+      "id": "service-healthy",
+      "statement": "Checkout remains healthy under a staging synthetic transaction.",
+      "critical": true,
+      "minPassing": 2,
+      "maxAgeMinutes": 30,
+      "independentVerifier": true,
+      "requiredEvidenceTypes": ["metric", "observation"],
+      "requiredTags": ["staging"]
+    }
+  ],
+  "evidence": []
+}

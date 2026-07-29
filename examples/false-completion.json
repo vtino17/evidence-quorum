@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0",
+  "id": "checkout-v42-false-completion",
+  "goal": "Demonstrate completion claims that must be rejected.",
+  "executor": "release-agent",
+  "actors": [
+    { "id": "release-agent", "label": "Release Agent", "type": "agent" },
+    { "id": "ci-verifier", "label": "CI Verifier", "type": "service" },
+    { "id": "release-manager", "label": "Release Manager", "type": "human" }
+  ],
+  "criteria": [
+    {
+      "id": "tests-pass",
+      "statement": "The checkout suite passes, including negative paths.",
+      "critical": true,
+      "minPassing": 2,
+      "maxAgeMinutes": 60,
+      "independentVerifier": true,
+      "requiredEvidenceTypes": ["test", "review"],
+      "negativeTestRequired": true
+    },
+    {
+      "id": "service-healthy",
+      "statement": "The deployed checkout is healthy.",
+      "critical": true,
+      "minPassing": 2,
+      "maxAgeMinutes": 30,
+      "independentVerifier": true,
+      "requiredEvidenceTypes": ["metric", "observation"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-self-approved",
+      "criterionId": "tests-pass",
+      "type": "test",
+      "producedBy": "release-agent",
+      "verifiedBy": "release-agent",
+      "capturedAt": "2026-07-29T04:20:00.000Z",
+      "outcome": "pass",
+      "artifactRef": "file://agent-report.json",
+      "digest": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "tags": [],
+      "details": "The executor approved its own test output."
+    },
+    {
+      "id": "ev-stale-review",
+      "criterionId": "tests-pass",
+      "type": "review",
+      "producedBy": "release-agent",
+      "verifiedBy": "release-manager",
+      "capturedAt": "2026-07-28T01:00:00.000Z",
+      "outcome": "pass",
+      "artifactRef": "https://reviews.example/old",
+      "digest": "9999999999999999999999999999999999999999999999999999999999999999",
+      "tags": [],
+      "details": "This review predates the current release."
+    },
+    {
+      "id": "ev-reused",
+      "criterionId": "service-healthy",
+      "type": "metric",
+      "producedBy": "release-agent",
+      "verifiedBy": "ci-verifier",
+      "capturedAt": "2026-07-29T04:25:00.000Z",
+      "outcome": "fail",
+      "artifactRef": "https://metrics.example/failing",
+      "digest": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "tags": [],
+      "details": "A reused receipt also contradicts the completion claim."
+    }
+  ]
+}

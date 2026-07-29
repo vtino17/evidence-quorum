@@ -1,0 +1,11 @@
+{
+  "name": "@evidencequorum/cli",
+  "version": "0.1.0",
+  "description": "CLI for auditing and certifying EvidenceQuorum contracts.",
+  "type": "module",
+  "bin": { "evidence-quorum": "./dist/index.js" },
+  "main": "./dist/index.js",
+  "files": ["dist"],
+  "scripts": { "build": "tsc -p tsconfig.build.json" },
+  "dependencies": { "@evidencequorum/core": "workspace:*" }
+}

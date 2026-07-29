@@ -1,0 +1,10 @@
+{
+  "name": "@evidencequorum/core",
+  "version": "0.1.0",
+  "description": "Completion evidence audit and certificate engine.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": { "build": "tsc -p tsconfig.build.json" }
+}

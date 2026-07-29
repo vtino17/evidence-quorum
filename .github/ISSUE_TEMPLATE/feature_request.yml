@@ -1,0 +1,25 @@
+name: Feature request
+description: Propose a completion control, adapter, or workflow improvement.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Completion risk
+      description: Which false-completion scenario should this address?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+    validations:
+      required: true
+  - type: textarea
+    id: trust
+    attributes:
+      label: Trust assumptions
+      description: Which inputs, identities, or systems must be trusted?
+    validations:
+      required: true
