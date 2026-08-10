@@ -114,6 +114,7 @@ export interface CertificateVerification {
     contractHash: boolean;
     uniqueEvidence: boolean;
     criterionCoverage: boolean;
+    criterionBindings: boolean;
   };
   errors: string[];
 }

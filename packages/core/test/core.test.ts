@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   auditCompletion,
+  canonicalJson,
   compileCertificate,
   diffContracts,
   hashValue,
@@ -109,6 +110,27 @@ describe("completion certificates", () => {
     const certificate = compileCertificate({ contract, audit, issuedAt: auditAt });
     certificate.content += "\nTampered";
     expect(verifyCertificate({ certificate, contract }).valid).toBe(false);
+  });
+
+  it("rejects a rehashed certificate with forged criterion bindings", () => {
+    const contract = copy();
+    const audit = auditCompletion(contract, auditAt);
+    const certificate = compileCertificate({ contract, audit, issuedAt: auditAt });
+    certificate.criteria[0]!.statement = "Forged completion claim";
+    certificate.certificateHash = sha256(canonicalJson({
+      certificateVersion: certificate.certificateVersion,
+      contractId: certificate.contractId,
+      contractHash: certificate.contractHash,
+      issuedAt: certificate.issuedAt,
+      status: certificate.status,
+      criteria: certificate.criteria,
+      content: certificate.content,
+    }));
+
+    const verification = verifyCertificate({ certificate, contract });
+    expect(verification.checks.certificateHash).toBe(true);
+    expect(verification.checks.criterionBindings).toBe(false);
+    expect(verification.valid).toBe(false);
   });
 
   it("refuses to certify a blocked audit", () => {
