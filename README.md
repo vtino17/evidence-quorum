@@ -1,8 +1,8 @@
-# EvidenceQuorum
+﻿# EvidenceQuorum
 
 **Independent evidence quorum and completion-certificate compiler for AI agents.**
 
-An agent saying “done” is a claim, not proof. EvidenceQuorum evaluates that claim against an explicit completion contract: every acceptance criterion can require multiple distinct verifiers, fresh evidence, heterogeneous evidence types, required tags, and a negative-path check. Passing contracts produce a portable, tamper-evident completion certificate.
+An agent saying "done" is a claim, not proof. EvidenceQuorum evaluates that claim against an explicit completion contract: every acceptance criterion can require multiple distinct verifiers, fresh evidence, heterogeneous evidence types, required tags, and a negative-path check. Passing contracts produce a portable, tamper-evident completion certificate.
 
 > Experimental developer tool. EvidenceQuorum verifies declared evidence policy; it does not prove that an external artifact is truthful.
 
@@ -125,9 +125,9 @@ See [docs/INTEGRATION.md](docs/INTEGRATION.md) for a CI example and [docs/THREAT
 
 EvidenceQuorum is inspired by current work on agent evaluation and externally gated completion:
 
-- NIST’s [Building Evaluation Probes into Agentic AI](https://www.nist.gov/programs-projects/building-evaluation-probes-agentic-ai) describes adversarial verifiers, machine-readable audit trails, and mappings from claims to evidence.
+- NIST's [Building Evaluation Probes into Agentic AI](https://www.nist.gov/programs-projects/building-evaluation-probes-agentic-ai) describes adversarial verifiers, machine-readable audit trails, and mappings from claims to evidence.
 - The paper [Verify-Gated Completion](https://arxiv.org/abs/2605.17998) studies completion protocols where externally checked evidence gates termination.
-- NIST’s [AI Test, Evaluation, Validation and Verification](https://www.nist.gov/ai-test-evaluation-validation-and-verification-tevv) program provides the broader TEVV context.
+- NIST's [AI Test, Evaluation, Validation and Verification](https://www.nist.gov/ai-test-evaluation-validation-and-verification-tevv) program provides the broader TEVV context.
 
 This repository is an original experimental implementation of a multi-receipt quorum policy and certificate format. The name search and public repository search performed before publication found no exact `EvidenceQuorum` project, but that is not a legal or global uniqueness guarantee.
 
